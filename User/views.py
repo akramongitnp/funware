@@ -2,6 +2,7 @@ from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
 
 def home(request):
     return render(request, 'home.html')
@@ -42,6 +43,9 @@ def signin(request):
 
 
     return render(request, 'signin.html')
+
+def index(request):
+    return render(request, 'index.html')
 
 def signout(request):
     logout(request)
