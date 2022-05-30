@@ -1,8 +1,11 @@
+from multiprocessing import context
 from pyexpat.errors import messages
+from unicodedata import name
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
+from Product.models import Product
 
 def home(request):
     return render(request, 'home.html')
@@ -22,10 +25,10 @@ def signup(request):
         myuser.last_name = lastname
         myuser.save()
 
-        return redirect(request, '/signin')
+        return redirect(request, '/home')
 
 
-    return render(request, 'signup.html')
+    return render(request, 'home.html')
 
 def signin(request):
     if request.method == 'POST':
@@ -39,13 +42,18 @@ def signin(request):
             print(fname)
             return render(request, 'home.html', {'fname' : fname})
         else:
-            return redirect('/signup')
+            return redirect('/home')
 
 
-    return render(request, 'signin.html')
+    return render(request, 'home.html')
 
 def index(request):
-    return render(request, 'index.html')
+    products = Product.objects.all()
+    context = {'prod': products}
+    return render(request, 'index.html', context)
+
+def profile(request):
+    return render(request, 'profile.html')
 
 def signout(request):
     logout(request)
