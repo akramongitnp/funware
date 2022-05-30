@@ -52,6 +52,9 @@ def index(request):
     context = {'prod': products}
     return render(request, 'index.html', context)
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def signout(request):
     logout(request)
     return redirect('/')
