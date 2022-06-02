@@ -1,10 +1,6 @@
-from multiprocessing import context
-from pyexpat.errors import messages
-from unicodedata import name
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
 from Product.models import Product
 
 def home(request):
