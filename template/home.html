@@ -331,22 +331,29 @@ http://www.templatemo.com/tm-509-hydro
                               </div>
 
                               <div class="col-md-6 col-sm-6">
-                                   <input type="email" class="form-control" placeholder="Your Email" id="cf-email" name="cf-email" required="">
+                                   <select class="form-control" id="cf-budgets" name="cf-budgets">
+                                        <option>Looking for</option>
+                                        <option>Mobiles</option>
+                                        <option>Laptops</option>
+                                        <option>Cameras</option>
+                                        <option>Cars</option>
+                                        <option>Others</option>
+                                   </select>
                               </div>
 
                               <div class="col-md-6 col-sm-6">
-                                   <input type="tel" class="form-control" placeholder="Your Phone" id="cf-number" name="cf-number" required="">
+                                   <input type="email" class="form-control" placeholder="Enter phone" id="cf-email" name="cf-email" required="">
                               </div>
 
                               <div class="col-md-6 col-sm-6">
                                    <select class="form-control" id="cf-budgets" name="cf-budgets">
                                         <option>Budget Level</option>
-                                        <option>$500 to $1,000</option>
-                                        <option>$1,000 to $2,200</option>
-                                        <option>$2,200 to $4,500</option>
-                                        <option>$4,500 to $7,500</option>
-                                        <option>$7,500 to $12,000</option>
-                                        <option>$12,000 or more</option>
+                                        <option>₹5000 to ₹10,000</option>
+                                        <option>₹10,000 to ₹20,000</option>
+                                        <option>₹20,000 to ₹40,000</option>
+                                        <option>₹40,000 to ₹70,000</option>
+                                        <option>₹70,000 to ₹120,000</option>
+                                        <option>₹120,000 or more</option>
                                    </select>
                               </div>
 
@@ -473,6 +480,17 @@ http://www.templatemo.com/tm-509-hydro
 
                                         <!-- TAB PANES -->
                                         <div class="tab-content">
+                                             
+                                             <div role="tabpanel" class="tab-pane fade in" id="sign_in">
+                                                  <form action="/signin" method="post">
+                                                       {% csrf_token %}
+                                                       <input type="text" class="form-control" name="uname" placeholder="Email" required>
+                                                       <input type="password" class="form-control" name="psw" placeholder="Password" required>
+                                                       <input type="submit" class="form-control" name="submit" value="Signin">
+                                                       <a href="https://www.facebook.com/templatemo">Forgot your password?</a>
+                                                  </form>
+                                             </div>
+
                                              <div role="tabpanel" class="tab-pane fade in active" id="sign_up">
                                                   <form action="/signup" method="post">
                                                        {% csrf_token %}
@@ -483,16 +501,6 @@ http://www.templatemo.com/tm-509-hydro
                                                        <input type="password" class="form-control" name="pass" placeholder="Password" required>
                                                        <input type="password" class="form-control" name="password" placeholder="Confirm Password" required>
                                                        <input type="submit" class="form-control" name="submit" value="Signup">
-                                                  </form>
-                                             </div>
-
-                                             <div role="tabpanel" class="tab-pane fade in" id="sign_in">
-                                                  <form action="/signin" method="post">
-                                                       {% csrf_token %}
-                                                       <input type="text" class="form-control" name="uname" placeholder="Email" required>
-                                                       <input type="password" class="form-control" name="psw" placeholder="Password" required>
-                                                       <input type="submit" class="form-control" name="submit" value="Signin">
-                                                       <a href="https://www.facebook.com/templatemo">Forgot your password?</a>
                                                   </form>
                                              </div>
                                         </div>

@@ -15,16 +15,16 @@ def signup(request):
         email = request.POST['email']
         pass1 = request.POST['pass']
         pass2 = request.POST['password']
-
-        myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name = firstname
-        myuser.last_name = lastname
-        myuser.save()
-
-        return redirect(request, '/home')
-
-
-    return render(request, 'home.html')
+        if pass1 == pass2:
+            myuser = User.objects.create_user(username, email, pass1)
+            myuser.first_name = firstname
+            myuser.last_name = lastname
+            myuser.save()
+            user = authenticate(username = username, password = pass1)
+            login(request, user)
+            return redirect('/')
+        else:
+            return redirect('/')
 
 def signin(request):
     if request.method == 'POST':
@@ -35,10 +35,9 @@ def signin(request):
         if user is not None:
             login(request, user)
             fname = user.first_name
-            print(fname)
             return render(request, 'home.html', {'fname' : fname})
         else:
-            return redirect('/home')
+            return redirect('/')
 
 
     return render(request, 'home.html')
