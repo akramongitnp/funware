@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+</head>
+<body>
+    <h2>Product URL working fine!</h2>
+    {% for i in item %}
+    <h2>{{request.requested_product.requested_user}}</h2>
+    <h4>{{request.i.request_created_at}}</h4>
+    {% endfor %}
+    {% for i in item %}
+    <h2>{{i.name}}</h2>
+    <h4>{{i.created_by}}</h4>
+    <h4>{{i.onboarded_at}}</h4>
+    {% endfor %}
+</body>
+</html>

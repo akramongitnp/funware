@@ -20,6 +20,8 @@
 
      <!-- Feed CSS -->
      <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+
+     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
      
 </head>
 <body>
@@ -53,6 +55,7 @@
                          <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
                          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                         <li class="section-btn" data-toggle="modal" data-target="#feed-add"><i class="fa fa-plus"></i></li>
                          {% if user.is_authenticated %}
                          <li class="section-btn" data-toggle="modal" data-target="#modal-profile">Hello {{ request.user.first_name }}</li>
                          {% else %}
@@ -65,40 +68,42 @@
           </div>
      </section>
 
-     <!-- Feed -->
-
-     <section class="section-products">
-		<div class="container">
-				<div class="row justify-content-center text-center">
-					<div class="col-md-8 col-lg-6">
-						<div class="header">
-						</div>
-					</div>
-				</div>
-		<div class="row">
-		<!-- Single Product -->
-          {% for i in prod %}
-			<div class="col-md-6 col-lg-4 col-xl-3">
-				<div id="product-1" class="single-product">
-					<div class="part-1">
-                              <img src="https://i.ibb.co/L8Nrb7p/1.jpg"/>
-						<ul>
-							<li><a href="#">Cart</a></li>
-							<li><a href="#">Like</a></li>
-							<li><a href="#">Expand</a></li>
-							<li><a href="#"></i>Details</a></li>
-						</ul>
-				     </div>
-					<div class="part-2">
-						<h3 style="color: white; font-size: 70%;">{{i.name}}</h3>
-						<h4 style="color: rgb(242, 226, 226);">₹{{i.price}}</h4>
-					</div>
-				</div>
-			</div>
-          {% endfor %}
-
-</section>
-
+    
+     <section>  <!--Feed-->
+          
+          <div class="container mb80">
+               {% for i in prod %}
+               <div class="page-timeline">
+                   <div class="vtimeline-point">
+                       <div class="vtimeline-icon">
+                           <i class="fa fa-image"></i>
+                       </div>
+                       <div class="vtimeline-block">
+                           <span class="vtimeline-date">{{i.onboarded_at}}</span><div class="vtimeline-content">
+                               <a href="#"><img src="{{i.image.url}}" alt="" class="img-fluid mb20"></a>
+                               <!--https://via.placeholder.com/700x400-->
+                               <a href="#"><h3>{{i.name}}</h3></a>
+                               <ul class="post-meta list-inline">
+                                   <li class="list-inline-item">
+                                       <i class="fa fa-user-circle-o"></i> <a href="#">{{i.created_by}}</a>
+                                   </li>
+                                   <li class="list-inline-item">
+                                       <i class="fa fa-calendar-o"></i> <a href="#">{{i.onboarded_at}}</a>
+                                   </li>
+                                   <li class="list-inline-item">
+                                       <i class="fa fa-tags"></i> <a href="#">Bootstrap4</a>
+                                   </li>
+                               </ul>
+                               <p>
+                                   {{i.description}}
+                               </p><br>
+                               <a href="#" class="btn btn-outline-secondary btn-sm">Read More</a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               {% endfor %}
+     </section>     
      <!-- ABOUT -->
      
      <!-- CONTACT -->
@@ -192,8 +197,8 @@
 
                                         <!-- NAV TABS -->
                                         <ul class="nav nav-tabs" role="tablist">
-                                             <li class="active"><a href="#sign_up" aria-controls="sign_up" role="tab" data-toggle="tab">Sign Up</a></li>
-                                             <li><a href="#sign_in" aria-controls="sign_in" role="tab" data-toggle="tab">Sign In</a></li>
+                                             <li><a href="#sign_up" aria-controls="sign_up" role="tab" data-toggle="tab">Sign Up</a></li>
+                                             <li class="active"><a href="#sign_in" aria-controls="sign_in" role="tab" data-toggle="tab">Sign In</a></li>
                                         </ul>
 
                                         <!-- TAB PANES -->
@@ -270,6 +275,55 @@
                </div>
           </div>
      </section>
+
+     <!-- FEED ADD MODAL -->
+
+     <section class="modal fade" id="feed-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+               <div class="modal-content modal-popup">
+
+                    <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>
+
+                    <div class="modal-body">
+                         <div class="container-fluid">
+                              <div class="row">
+
+                                   <div class="col-md-12 col-sm-12">
+                                        <div class="modal-title">
+                                             <h2>Funware</h2>
+                                        </div>
+
+                                        <!-- TAB PANES -->
+                                        <div class="tab-content">
+                                             <div role="tabpanel" class="tab-pane fade in active">
+                                                  <form action="/feedpost" method="post">
+                                                       {% csrf_token %}
+                                                       <input type="text" class="form-control" name="product_name" placeholder="Enter product Name and Model" required>
+                                                       <input type="number" class="form-control" name="product_price" placeholder="Enter the Price" required>
+                                                       <input type="text" class="form-control" name="product_desc" placeholder="Enter the Product Description" required>
+                                                       <input type="file" class="form-control" name="product_img" placeholder="Upload the Image" required>
+                                                       <input type="text" class="form-control" name="product_type" placeholder="Enter the type" required>
+                                                       <input type="text" class="form-control" name="product_model" placeholder="Enter the Model" required>
+                                                       <input type="submit" class="form-control" name="submit" value="Post to Feed">
+                                                  </form>               
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+
+
      <!-- SCRIPTS -->
      <script src="{% static 'js/jquery.js' %}"></script>
      <script src="{% static 'js/bootstrap.min.js' %}"></script>
